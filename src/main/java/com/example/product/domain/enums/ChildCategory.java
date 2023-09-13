@@ -1,6 +1,5 @@
 package com.example.product.domain.enums;
 
-import com.example.product.domain.enums.ParentCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

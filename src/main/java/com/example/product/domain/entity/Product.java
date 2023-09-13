@@ -1,46 +1,72 @@
 package com.example.product.domain.entity;
 
-import com.example.product.domain.enums.ParentCategory;
-import com.example.product.domain.enums.ChildCategory;
-import com.example.product.exception.InvalidCategoryException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
+@Table(name = "products")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "category_id", nullable = false)
     private String categoryId;
-    private String name;
-    private String brand;
-    private String defaultColor;
-    private String deliveryType;
-    private double deliveryFee;
-    private int likesCount;
-    private String descriptionPost;
-    private int quantity;
-    private String productImages;
 
+    @Column(nullable = false)
+    private String image_url;
 
-    // 차후 service에서 물건등록 메소드가 생기면 최종적으로 setCategory 메소드를 불러서 categoryId로 넣어줘야함.
-    public void setCategory(ParentCategory parentCategory, ChildCategory childCategory) {
-        if (childCategory.getParentCategory() != parentCategory) {
-            throw new InvalidCategoryException("카테고리가 일치하지 않습니다");
-        }
-        this.categoryId = parentCategory.getCode() + childCategory.getCode();
-    }
+    @Column(name = "product_name", nullable = false)
+    private String productName;
+
+    @Lob
+    @Column(name = "product_content", nullable = false)
+    private String productContent;
+
+    @Column(name = "original_price", nullable = false)
+    private Integer originalPrice;
+
+    @Column(name = "discount_rate")
+    private Integer discountRate;
+
+    @Column(name = "wish_count")
+    @Builder.Default
+    private Integer wishCount = 0;
+
+    @Column(name = "purchase_count")
+    @Builder.Default
+    private Integer viewCount = 0;
+
+    @Column(name = "review_avg")
+    @Builder.Default
+    private Double reviewAvg = 0.0;
+
+    @Column(name = "is_sold_out")
+    @Builder.Default
+    private Boolean isSoldOut = false;
+
+    @Column(name = "is_selling")
+    @Builder.Default
+    private Boolean isSelling = true;
+
+    @Column(name = "review_count")
+    @Builder.Default
+    private Integer reviewCount = 0;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Delivery delivery;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "fk_product_brand"), nullable = false)
+    private Brand brand;
+
+    // Options options;
+
 
 }

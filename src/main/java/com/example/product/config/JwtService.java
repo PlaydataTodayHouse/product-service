@@ -1,4 +1,4 @@
-package com.example.product.domain.config;
+package com.example.product.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

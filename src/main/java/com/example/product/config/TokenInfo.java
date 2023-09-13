@@ -1,4 +1,4 @@
-package com.example.product.domain.config;
+package com.example.product.config;
 
 
 import lombok.AllArgsConstructor;
