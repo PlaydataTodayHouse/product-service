@@ -15,4 +15,13 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "brand_image_url", nullable = false)
+    private String brandImageUrl;
+
+    @Column(name = "brand_name", nullable = false)
+    private String brandName;
+
+    @Column(name = "brand_introduction", nullable = false)
+    private String brandIntroduction;
+
 }

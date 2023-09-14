@@ -18,8 +18,8 @@ public class Product {
     @Column(name = "category_id", nullable = false)
     private String categoryId;
 
-    @Column(nullable = false)
-    private String image_url;
+    @Column(name = "product_image_url", nullable = false)
+    private String productImageUrl;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
