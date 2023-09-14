@@ -28,6 +28,12 @@ public class Product {
     @Column(name = "product_content", nullable = false)
     private String productContent;
 
+    @Column(name = "company", nullable = false)
+    private String company;
+
+    @Column(name = "company_registration_number", nullable = false)
+    private String companyRegistrationNumber;
+
     @Column(name = "original_price", nullable = false)
     private Integer originalPrice;
 
@@ -46,6 +52,9 @@ public class Product {
     @Builder.Default
     private Double reviewAvg = 0.0;
 
+    @Column(name = "total_quantity", nullable = false)
+    private Integer totalQuantity;
+
     @Column(name = "is_sold_out")
     @Builder.Default
     private Boolean isSoldOut = false;
@@ -58,6 +67,10 @@ public class Product {
     @Builder.Default
     private Integer reviewCount = 0;
 
+    @Embedded
+    @Builder.Default
+    private Options options = new Options();
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Delivery delivery;
@@ -66,7 +79,6 @@ public class Product {
     @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "fk_product_brand"), nullable = false)
     private Brand brand;
 
-    // Options options;
-
+    // TODO: 해당 상품의 수량이나 해당 상품의 옵션 수량을 체크해 isSoldOut 체크
 
 }

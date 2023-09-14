@@ -15,10 +15,18 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "option_name", nullable = false, length = 20)
     private String optionName;
 
-    private Integer optionPrice;
+    @Column(name = "is_required")
+    private Boolean isRequired;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_option_product"), nullable = false)
+    private Product product;
 
+    @Embedded
+    @Builder.Default
+    private OptionDetails optionDetails = new OptionDetails();
 
 }

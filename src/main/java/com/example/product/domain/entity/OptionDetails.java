@@ -14,9 +14,9 @@ import java.util.List;
 @Getter
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Options {
+public class OptionDetails {
 
     @OneToMany(mappedBy = "option", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Option> options = new ArrayList<>();
+    private List<OptionDetail> optionDetails = new ArrayList<>();
 
 }

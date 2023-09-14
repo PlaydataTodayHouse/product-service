@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ChildCategory {
+
     TV(ParentCategory.ELECTRONICS, "1001", "TV"),
     REFRIGERATOR(ParentCategory.ELECTRONICS, "1002", "냉장고"),
     COMPUTER(ParentCategory.ELECTRONICS, "1003", "컴퓨터"),
@@ -19,4 +20,5 @@ public enum ChildCategory {
     private final ParentCategory parentCategory;
     private final String code;
     private final String description;
+
 }
