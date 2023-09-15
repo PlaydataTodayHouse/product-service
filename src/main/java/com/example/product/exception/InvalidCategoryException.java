@@ -1,7 +1,9 @@
 package com.example.product.exception;
 
-public class InvalidCategoryException extends RuntimeException {
-    public InvalidCategoryException(String message) {
-        super(message);
+import org.springframework.http.HttpStatus;
+
+public class InvalidCategoryException extends ProductException {
+    public InvalidCategoryException() {
+        super(HttpStatus.BAD_REQUEST);
     }
 }
