@@ -28,3 +28,7 @@ eureka:
 
   server:
     enable-self-preservation: false
+
+#temp
+jwt:
+  secret: fewbiuebeot5324980hbhgsd0uub9gpkklnqbp4214989oub926t32be0gbdsn

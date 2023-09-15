@@ -13,11 +13,13 @@ public class ControllerAdvice {
 
     private static final String INVALID_DTO_FIELD_ERROR_MESSAGE_FORMAT = "%s : %s (request value: %s)";
     private static final String UNKNOWN_EXCEPTION_FORMAT = "Unknown Exception !! : %s\n" + "%s:%s:%s";
+
     @ExceptionHandler(ProductException.class)
     public ResponseEntity<ErrorResponse> applicationException(ProductException e) {
         log.info(String.format("Application Exception!! type : %s", e.getClass().getSimpleName()));
 
-        return ResponseEntity.status(e.getStatus())
+        return ResponseEntity
+                .status(e.getStatus())
                 .body(new ErrorResponse(e.getErrorCode(), e.getErrorMessage()));
     }
 
@@ -31,7 +33,10 @@ public class ControllerAdvice {
                 firstFieldError.getDefaultMessage(), firstFieldError.getRejectedValue());
 
         ErrorResponse errorResponse = new ErrorResponse(errorCode, errorMessage);
-        return ResponseEntity.badRequest().body(errorResponse);
+
+        return ResponseEntity
+                .badRequest()
+                .body(errorResponse);
     }
 
     @ExceptionHandler(Exception.class)
@@ -43,7 +48,10 @@ public class ControllerAdvice {
 
         String errorCode = ExceptionType.UNKNOWN_EXCEPTION.getErrorCode();
         String message = ExceptionType.UNKNOWN_EXCEPTION.getErrorMessage();
-        return ResponseEntity.internalServerError().body(new ErrorResponse(errorCode, message));
+
+        return ResponseEntity
+                .internalServerError()
+                .body(new ErrorResponse(errorCode, message));
     }
 
 }

@@ -18,10 +18,10 @@ public class Brand {
     @Column(name = "brand_image_url", nullable = false)
     private String brandImageUrl;
 
-    @Column(name = "brand_name", nullable = false)
+    @Column(name = "brand_name", nullable = false, length = 30)
     private String brandName;
 
-    @Column(name = "brand_introduction", nullable = false)
+    @Column(name = "brand_introduction", nullable = false, length = 100)
     private String brandIntroduction;
 
     @Column(name = "star")

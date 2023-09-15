@@ -11,6 +11,8 @@ public class ValidatorMessage {
     public static final int MAX_PRODUCT_NAME_LENGTH = 50;
     public static final int MAX_OPTION_NAME_LENGTH = 20;
     public static final int MAX_OPTION_DETAIL_LENGTH = 30;
+    public static final int MAX_BRAND_NAME_LENGTH = 20;
+    public static final int MAX_BRAND_INTRODUCTION_LENGTH = 100;
 
     public static final String EMPTY_MESSAGE = "비어있는 항목을 입력해주세요.";
     public static final String INVALID_URL_MESSAGE = "유효하지 않은 URL입니다.";
@@ -21,5 +23,6 @@ public class ValidatorMessage {
     public static final String OPTION_DETAIL_LENGTH_MESSAGE = "옵션 상세명은 30자를 넘을 수 없습니다.";
     public static final String INVALID_QUANTITY_MESSAGE = "수량은 숫자여야 합니다.";
     public static final String QUANTITY_MESSAGE = "수량은 1개 이상이어야 합니다.";
-
+    public static final String BRAND_NAME_LENGTH_MESSAGE = "브랜드명은 20자를 넘을 수 없습니다.";
+    public static final String BRAND_INTRODUCTION_LENGTH_MESSAGE = "브랜드 소개는 100자를 넘을 수 없습니다.";
 }
