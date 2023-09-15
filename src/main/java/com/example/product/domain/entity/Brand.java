@@ -24,4 +24,12 @@ public class Brand {
     @Column(name = "brand_introduction", nullable = false)
     private String brandIntroduction;
 
+    @Column(name = "star")
+    @Builder.Default
+    private Double star = 0.0;
+
+    @Column(name = "review_count")
+    @Builder.Default
+    private Integer reviewCount = 0;
+
 }

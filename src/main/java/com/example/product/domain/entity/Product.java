@@ -16,12 +16,12 @@ public class Product {
     private Long id;
 
     @Column(name = "category_id", nullable = false)
-    private String categoryId;
+    private Category categoryId;
 
     @Column(name = "product_image_url", nullable = false)
     private String productImageUrl;
 
-    @Column(name = "product_name", nullable = false)
+    @Column(name = "product_name", nullable = false, length = 50)
     private String productName;
 
     @Lob
@@ -40,6 +40,13 @@ public class Product {
     @Column(name = "discount_rate")
     private Integer discountRate;
 
+    @Column(name = "total_quantity", nullable = false)
+    private Integer totalQuantity;
+
+    @Column(name = "sales_count")
+    @Builder.Default
+    private Integer salesCount = 0;
+
     @Column(name = "wish_count")
     @Builder.Default
     private Integer wishCount = 0;
@@ -52,8 +59,9 @@ public class Product {
     @Builder.Default
     private Double reviewAvg = 0.0;
 
-    @Column(name = "total_quantity", nullable = false)
-    private Integer totalQuantity;
+    @Column(name = "review_count")
+    @Builder.Default
+    private Integer reviewCount = 0;
 
     @Column(name = "is_sold_out")
     @Builder.Default
@@ -63,14 +71,6 @@ public class Product {
     @Builder.Default
     private Boolean isSelling = true;
 
-    @Column(name = "review_count")
-    @Builder.Default
-    private Integer reviewCount = 0;
-
-    @Embedded
-    @Builder.Default
-    private Options options = new Options();
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Delivery delivery;
@@ -78,6 +78,10 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "fk_product_brand"), nullable = false)
     private Brand brand;
+
+    @Embedded
+    @Builder.Default
+    private Options options = new Options();
 
     // TODO: 해당 상품의 수량이나 해당 상품의 옵션 수량을 체크해 isSoldOut 체크
 
