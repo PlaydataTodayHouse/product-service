@@ -16,7 +16,7 @@ public enum Delivery {
     private final Integer fee;
     private final String deliveryPeriod;
 
-    public static Delivery findByType(String type) {
+    public static Delivery of(String type) {
         return Arrays.stream(values())
                 .filter(delivery -> delivery.getType().equals(type.toLowerCase()))
                 .findFirst()

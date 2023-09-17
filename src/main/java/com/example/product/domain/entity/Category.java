@@ -1,7 +1,10 @@
 package com.example.product.domain.entity;
 
+import com.example.product.exception.InvalidCategoryException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
@@ -22,9 +25,15 @@ public enum Category {
     BLANKET("31000000", "이불"),
     PILLOW("32000000", "배게"),
     CURTAIN("33000000", "커튼");
-    ;
 
-    private final String code;
+    private final String id;
     private final String name;
+
+    public static Category of(String id) {
+        return Arrays.stream(values())
+                .filter(category -> category.getId().equals(id))
+                .findFirst()
+                .orElseThrow(InvalidCategoryException::new);
+    }
 
 }
