@@ -1,4 +1,4 @@
-package com.example.product.domain.entity.dto.request;
+package com.example.product.domain.entity.dto.request.option;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
