@@ -51,7 +51,7 @@ public class ProductCreateRequest {
     private String deliveryType;
 
     @NotBlank(message = EMPTY_MESSAGE)
-    private String brandId;
+    private Long brandId;
 
     List<OptionCreateRequest> options;
 

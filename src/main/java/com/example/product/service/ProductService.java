@@ -1,6 +1,7 @@
 package com.example.product.service;
 
 import com.example.product.config.TokenInfo;
+import com.example.product.domain.entity.Brand;
 import com.example.product.domain.entity.Category;
 import com.example.product.domain.entity.Delivery;
 import com.example.product.domain.entity.Product;
@@ -29,10 +30,10 @@ public class ProductService {
                 .originalPrice(Integer.parseInt(request.getOriginalPrice()))
                 .totalQuantity(Integer.parseInt(request.getTotalQuantity()))
                 .delivery(Delivery.of(request.getDeliveryType()))
+                .brand(Brand.builder().id(request.getBrandId()).build())
                 .build();
 
         productRepository.save(product);
     }
-
 
 }
