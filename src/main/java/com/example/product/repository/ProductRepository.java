@@ -1,7 +1,6 @@
 package com.example.product.repository;
 
 import com.example.product.domain.entity.Product;
-import jakarta.persistence.Tuple;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -63,6 +62,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "where p.id = :product_id " +
             "group by p.id", nativeQuery = true)
     Map<String, String> findProductBrandOptionsById(@Param("product_id") Long productId);
+
     // 상품 검색
 
 }
