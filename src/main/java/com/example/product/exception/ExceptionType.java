@@ -16,6 +16,7 @@ public enum ExceptionType {
     INVALID_PAGE_SIZE_EXCEPTION("003", "유효하지 않은 페이지 크기 입니다.", InvalidPageSizeException.class),
     INVALID_ORDER_BY_EXCEPTION("004", "유효하지 않은 정렬 기준입니다.", InvalidOrderTypeException.class),
     LONG_SEARCH_KEYWORD_EXCEPTION("005", "검색어는 30글자 이하로 입력해주세요.", LongSearchKeywordException.class),
+    BRAND_NOT_FOUND_EXCEPTION("006", "존재하지 않는 브랜드입니다.", NoSuchBrandFoundException.class),
     ;
 
     private final String errorCode;

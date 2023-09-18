@@ -19,7 +19,7 @@ public class Review extends BaseEntity {
     private String reviewContent;
 
     @Column(name = "review_image_url")
-    private String review_image_url;
+    private String reviewImageUrl;
 
     @Column(name = "product_option_name", nullable = false)
     private String productOptionName;

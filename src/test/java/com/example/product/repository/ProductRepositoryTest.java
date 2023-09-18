@@ -4,12 +4,15 @@ import com.example.product.RepositoryTest;
 import com.example.product.domain.entity.Option;
 import com.example.product.domain.entity.Product;
 import com.example.product.domain.entity.dto.request.query.QueryParameter;
+import jakarta.persistence.Tuple;
+import jakarta.persistence.TupleElement;
 import org.hibernate.Hibernate;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
@@ -117,21 +120,17 @@ class ProductRepositoryTest extends RepositoryTest {
         assertThat(products.stream().allMatch(p -> p.getBrand() != null)).isTrue();
     }
 
-//    @Test
-//    void findProductBrandOptionsById() {
-//        // given
-//        Long productId = 1L;
-//
-//        // when
-//        Product product = productRepository.findProductBrandOptionsById(productId);
-//
-//        // then
-//        assertThat(product).isNotNull();
-//        assertThat(product.getBrand()).isNotNull();
-//        assertThat(product.getOptions()).isNotNull();
-//
-//        assertThat(Hibernate.isInitialized(product.getBrand())).isTrue();
-//        assertThat(Hibernate.isInitialized(product.getOptions())).isTrue();
-//    }
+    @Test
+    void findProductBrandOptionsById() {
+        // given
+        Long productId = 1L;
+
+        // when
+        Map<String, String> productBrandOptionsById = productRepository.findProductBrandOptionsById(productId);
+
+        // then
+        productBrandOptionsById.entrySet().forEach(System.out::println);
+
+    }
 
 }
