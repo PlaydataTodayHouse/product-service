@@ -3,6 +3,9 @@ package com.example.product.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,8 +28,7 @@ public class Option {
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_option_product"), nullable = false)
     private Product product;
 
-    @Embedded
-    @Builder.Default
-    private OptionDetails optionDetails = new OptionDetails();
+    @OneToMany(mappedBy = "option", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OptionDetail> optionDetails = new ArrayList<>();
 
 }

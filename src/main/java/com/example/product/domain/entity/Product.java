@@ -3,6 +3,9 @@ package com.example.product.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -79,9 +82,8 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "fk_product_brand"), nullable = false)
     private Brand brand;
 
-    @Embedded
-    @Builder.Default
-    private Options options = new Options();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Option> options = new ArrayList<>();
 
     // TODO: 해당 상품의 수량이나 해당 상품의 옵션 수량을 체크해 isSoldOut 체크
 

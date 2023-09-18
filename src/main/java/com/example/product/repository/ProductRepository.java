@@ -18,7 +18,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findProductsByCategoryAndOrderByCondition(@Param("category_id") String categoryId, Pageable pageable);
 
     // 상품 디테일
-
+    @Query("select p from Product p " +
+            "left join fetch p.brand b " +
+            "left join fetch p.options o " +
+            "where p.id = :product_id")
+    Product findProductById(@Param("product_id") Long productId);
 
     // 상품 검색
 
