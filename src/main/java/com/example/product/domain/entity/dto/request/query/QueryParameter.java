@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 @Getter
 @NoArgsConstructor
@@ -35,7 +36,11 @@ public class QueryParameter {
     }
 
     public PageRequest getPageRequest() {
-        return PageRequest.of(start, size);
+        return PageRequest.of(
+                start,
+                size,
+                Sort.by(orderByParameter.getOrderBy()).descending()
+        );
     }
 
     private static int initializeStart(String start) {

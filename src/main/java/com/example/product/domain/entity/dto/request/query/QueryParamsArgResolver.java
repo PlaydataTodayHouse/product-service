@@ -28,7 +28,7 @@ public class QueryParamsArgResolver implements HandlerMethodArgumentResolver {
 
         Map<String, String> parameterMap = new HashMap<>();
 
-        // keyword, category_id, start, size
+        // keyword, category_id, order, start, size
         Enumeration<String> parameterNames = nativeRequest.getParameterNames();
 
         while (parameterNames.hasMoreElements()) {

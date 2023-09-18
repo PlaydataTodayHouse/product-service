@@ -11,10 +11,11 @@ import java.util.Objects;
 public enum ExceptionType {
 
     UNKNOWN_EXCEPTION("000", "알 수 없는 서버 에러"),
-    INVALID_CATEGORY_EXCEPTION("001", "유효하지 않은 카테고리입니다."),
-    INVALID_PAGE_START_EXCEPTION("002", "유효하지 않은 시작 페이지 입니다."),
-    INVALID_PAGE_SIZE_EXCEPTION("003", "유효하지 않은 페이지 크기 입니다."),
-    INVALID_ORDER_BY_EXCEPTION("004", "유효하지 않은 정렬 기준입니다."),
+    INVALID_CATEGORY_EXCEPTION("001", "유효하지 않은 카테고리입니다.", InvalidCategoryException.class),
+    INVALID_PAGE_START_EXCEPTION("002", "유효하지 않은 시작 페이지 입니다.", InvalidPageStartException.class),
+    INVALID_PAGE_SIZE_EXCEPTION("003", "유효하지 않은 페이지 크기 입니다.", InvalidPageSizeException.class),
+    INVALID_ORDER_BY_EXCEPTION("004", "유효하지 않은 정렬 기준입니다.", InvalidOrderTypeException.class),
+    LONG_SEARCH_KEYWORD_EXCEPTION("005", "검색어는 30글자 이하로 입력해주세요.", LongSearchKeywordException.class),
     ;
 
     private final String errorCode;
