@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Service
 public class JwtService {
+
     @Value("${jwt.secret}")
     private String secret;
 
@@ -19,6 +20,7 @@ public class JwtService {
                 .build()
                 .parse(token)
                 .getBody();
+
         return TokenInfo.builder()
                 .id(UUID.fromString(body.get("id", String.class)))
                 .userId(body.get("userId", String.class))
@@ -29,6 +31,5 @@ public class JwtService {
                 .role(body.get("role", String.class))
                 .build();
     }
-
 
 }

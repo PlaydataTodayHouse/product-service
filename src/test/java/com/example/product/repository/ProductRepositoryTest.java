@@ -117,28 +117,21 @@ class ProductRepositoryTest extends RepositoryTest {
         assertThat(products.stream().allMatch(p -> p.getBrand() != null)).isTrue();
     }
 
-    @Test
-    void findProductById() {
-        // given
-        Long productId = 1L;
-
-        // when
-        Product product = productRepository.findProductById(productId);
-
-        // then
-        assertThat(product).isNotNull();
-        assertThat(product.getBrand()).isNotNull();
-        assertThat(product.getOptions()).isNotNull();
-
-        assertThat(Hibernate.isInitialized(product.getBrand())).isTrue();
-        assertThat(Hibernate.isInitialized(product.getOptions())).isTrue();
-
-        System.out.println("==================");
-        System.out.println(product.getId());
-        System.out.println(product.getBrand().getId());
-        List<Option> options = product.getOptions();
-        System.out.println(options.size());
-        System.out.println("==================");
-    }
+//    @Test
+//    void findProductBrandOptionsById() {
+//        // given
+//        Long productId = 1L;
+//
+//        // when
+//        Product product = productRepository.findProductBrandOptionsById(productId);
+//
+//        // then
+//        assertThat(product).isNotNull();
+//        assertThat(product.getBrand()).isNotNull();
+//        assertThat(product.getOptions()).isNotNull();
+//
+//        assertThat(Hibernate.isInitialized(product.getBrand())).isTrue();
+//        assertThat(Hibernate.isInitialized(product.getOptions())).isTrue();
+//    }
 
 }

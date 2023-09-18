@@ -2,6 +2,8 @@ drop table if exists brands cascade;
 drop table if exists products cascade;
 drop table if exists options cascade;
 drop table if exists option_details cascade;
+drop table if exists reviews cascade;
+
 
 create table brands
 (
@@ -59,6 +61,20 @@ create table option_details
     option_detail varchar(30) not null,
     constraint fk_option_detail_option
         foreign key (option_id) references options (id)
+);
+
+create table reviews
+(
+    star_grade          int          not null,
+    created_at          datetime(6)  not null,
+    id                  bigint auto_increment primary key,
+    modified_at         datetime(6)  not null,
+    product_id          bigint       not null,
+    review_content      varchar(300) not null,
+    product_option_name varchar(255) not null,
+    review_image_url    varchar(255) null,
+    constraint fk_review_product
+        foreign key (product_id) references products (id)
 );
 
 insert into brands(id, review_count, star, brand_name, brand_introduction, brand_image_url)
@@ -145,3 +161,8 @@ insert into option_details(id, is_sold_out, option_price, quantity, option_id, o
            (26, false, 20000, 1800, 16, 'option1_detail26'),
            (27, true, 20000, 1800, 17, 'option1_detail27'),
            (28, false, 20000, 1800, 18, 'option1_detail28');
+
+insert into reviews(star_grade, created_at, id, modified_at, product_id, review_content, product_option_name, review_image_url)
+    values (4, NOW(), 1, NOW(), 1, 'content1', 'option1_detail1', 'https://reviewImage1'),
+           (3, NOW(), 2, NOW(), 5, 'content2', 'option1_detail5', 'https://reviewImage2'),
+           (5, NOW(), 3, NOW(), 9, 'content3', 'option1_detail9', 'https://reviewImage3');

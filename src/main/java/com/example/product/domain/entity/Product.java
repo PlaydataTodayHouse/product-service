@@ -41,7 +41,8 @@ public class Product extends BaseEntity {
     private Integer originalPrice;
 
     @Column(name = "discount_rate")
-    private Integer discountRate;
+    @Builder.Default
+    private Integer discountRate = 0;
 
     @Column(name = "total_quantity", nullable = false)
     private Integer totalQuantity;
@@ -84,6 +85,9 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Option> options = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
 
     // TODO: 해당 상품의 수량이나 해당 상품의 옵션 수량을 체크해 isSoldOut 체크
 
