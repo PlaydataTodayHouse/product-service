@@ -1,21 +1,21 @@
 package com.example.product.service;
 
 import com.example.product.config.TokenInfo;
-import com.example.product.domain.entity.Brand;
-import com.example.product.domain.entity.Category;
-import com.example.product.domain.entity.Delivery;
-import com.example.product.domain.entity.Product;
+import com.example.product.domain.entity.*;
 import com.example.product.domain.entity.dto.request.product.ProductCreateRequest;
 import com.example.product.domain.entity.dto.request.query.QueryParameter;
+import com.example.product.domain.entity.dto.response.ProductDetailResponse;
 import com.example.product.domain.entity.dto.response.ProductResponses;
 import com.example.product.exception.NoSuchBrandFoundException;
-import com.example.product.repository.BrandRepository;
-import com.example.product.repository.ProductRepository;
+import com.example.product.exception.NoSuchProductFoundException;
+import com.example.product.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,6 +24,9 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
+    private final OptionRepository optionRepository;
+    private final OptionDetailRepository optionDetailRepository;
+    private final ReviewRepository reviewRepository;
 
     @Transactional
     public void save(ProductCreateRequest request, TokenInfo tokenInfo) {
@@ -52,6 +55,27 @@ public class ProductService {
         Page<Product> products = productRepository.findProductsByCategoryAndOrderByCondition(categoryId, pageRequest);
 
         return ProductResponses.of(products);
+    }
+
+    public ProductDetailResponse productDetail(Long productId, TokenInfo tokenInfo) {
+        Product product = productRepository.findProductById(productId)
+                .orElseThrow(NoSuchProductFoundException::new);
+
+        List<Long> optionIds = extractOptionIds(product);
+
+        List<OptionDetail> optionDetails = optionDetailRepository.findByOptionIds(optionIds);
+
+        List<Review> reviews = reviewRepository.findByProductId(product.getId());
+
+        ProductDetailResponse.of(product, reviews);
+
+        return null;
+    }
+
+    private static List<Long> extractOptionIds(Product product) {
+        return product.getOptions().stream()
+                .map(Option::getId)
+                .toList();
     }
 
     private Brand validateBrand(ProductCreateRequest request) {

@@ -5,6 +5,7 @@ import com.example.product.config.TokenInfo;
 import com.example.product.domain.entity.dto.request.product.ProductCreateRequest;
 import com.example.product.domain.entity.dto.request.query.QueryParameter;
 import com.example.product.domain.entity.dto.request.query.QueryParams;
+import com.example.product.domain.entity.dto.response.ProductDetailResponse;
 import com.example.product.domain.entity.dto.response.ProductResponses;
 import com.example.product.service.ProductService;
 import jakarta.validation.Valid;
@@ -37,4 +38,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.products(queryParameter, tokenInfo));
     }
 
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDetailResponse> productDetail(
+            @PathVariable("productId") Long productId,
+            @UserTokenInfo TokenInfo tokenInfo
+    ) {
+        return ResponseEntity.ok(productService.productDetail(productId, tokenInfo));
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -62,6 +63,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "where p.id = :product_id " +
             "group by p.id", nativeQuery = true)
     Map<String, String> findProductBrandOptionsById(@Param("product_id") Long productId);
+
+    @Query("select p from Product p " +
+            "left join p.brand b " +
+            "left join fetch p.options " +
+            "where p.id = :productId")
+    Optional<Product> findProductById(@Param("productId") Long productId);
 
     // 상품 검색
 

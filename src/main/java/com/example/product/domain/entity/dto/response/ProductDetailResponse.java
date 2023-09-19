@@ -1,13 +1,15 @@
 package com.example.product.domain.entity.dto.response;
 
 import com.example.product.domain.entity.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductDetailResponse {
 
     private Long productId;
@@ -36,7 +38,9 @@ public class ProductDetailResponse {
 
     private List<OptionResponse> options;
 
-    public ProductDetailResponse(Product product, Brand brand, Option option, OptionDetail optionDetail, Review review) {
+    private List<ReviewResponse> reviews;
+
+    public ProductDetailResponse(Product product, List<ReviewResponse> reviews) {
         this.productId = product.getId();
         this.categoryId = product.getCategoryId();
         this.productImageUrl = product.getProductImageUrl();
@@ -55,7 +59,16 @@ public class ProductDetailResponse {
         this.isSoldOut = product.getIsSoldOut();
         this.isSelling = product.getIsSelling();
         this.delivery = product.getDelivery();
-        this.brand = BrandResponse.of(brand);
-//        this.options = List.of(new OptionResponse(option, optionDetail));
+        this.brand = BrandResponse.of(product.getBrand());
+        this.reviews = reviews;
     }
+
+    public static ProductDetailResponse of(Product product, List<Review> reviews) {
+        List<ReviewResponse> reviewResponses = reviews.stream()
+                .map(ReviewResponse::of)
+                .toList();
+
+        return new ProductDetailResponse(product, reviewResponses);
+    }
+
 }
