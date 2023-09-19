@@ -6,10 +6,14 @@ import com.example.product.domain.entity.Category;
 import com.example.product.domain.entity.Delivery;
 import com.example.product.domain.entity.Product;
 import com.example.product.domain.entity.dto.request.product.ProductCreateRequest;
+import com.example.product.domain.entity.dto.request.query.QueryParameter;
+import com.example.product.domain.entity.dto.response.ProductResponses;
 import com.example.product.exception.NoSuchBrandFoundException;
 import com.example.product.repository.BrandRepository;
 import com.example.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +45,17 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public ProductResponses products(QueryParameter queryParameter, TokenInfo tokenInfo) {
+        String categoryId = queryParameter.getCategory().getId();
+        PageRequest pageRequest = queryParameter.getPageRequest();
+
+        Page<Product> products = productRepository.findProductsByCategoryAndOrderByCondition(categoryId, pageRequest);
+
+        return ProductResponses.of(products);
+    }
+
     private Brand validateBrand(ProductCreateRequest request) {
         return brandRepository.findById(request.getBrandId())
                 .orElseThrow(NoSuchBrandFoundException::new);
     }
-
 }
