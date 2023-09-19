@@ -60,6 +60,9 @@ public class ProductDetailResponse {
         this.isSelling = product.getIsSelling();
         this.delivery = product.getDelivery();
         this.brand = BrandResponse.of(product.getBrand());
+        this.options = product.getOptions().stream()
+                .map(OptionResponse::of)
+                .toList();
         this.reviews = reviews;
     }
 

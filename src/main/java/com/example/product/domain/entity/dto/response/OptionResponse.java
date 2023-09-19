@@ -1,6 +1,6 @@
 package com.example.product.domain.entity.dto.response;
 
-import com.example.product.domain.entity.OptionDetail;
+import com.example.product.domain.entity.Option;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,8 +17,16 @@ public class OptionResponse {
     private String optionName;
     private Boolean isRequired;
 
-    private List<OptionDetail> optionDetails;
+    private List<OptionDetailResponse> optionDetails;
 
-
+    public static OptionResponse of(Option option) {
+        return new OptionResponse(
+                option.getId(),
+                option.getOptionName(),
+                option.getIsRequired(),
+                option.getOptionDetails().stream()
+                        .map(OptionDetailResponse::of)
+                        .toList());
+    }
 
 }

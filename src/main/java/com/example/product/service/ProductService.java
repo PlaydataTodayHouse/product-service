@@ -61,15 +61,9 @@ public class ProductService {
         Product product = productRepository.findProductById(productId)
                 .orElseThrow(NoSuchProductFoundException::new);
 
-        List<Long> optionIds = extractOptionIds(product);
-
-        List<OptionDetail> optionDetails = optionDetailRepository.findByOptionIds(optionIds);
-
         List<Review> reviews = reviewRepository.findByProductId(product.getId());
 
-        ProductDetailResponse.of(product, reviews);
-
-        return null;
+        return ProductDetailResponse.of(product, reviews);
     }
 
     private static List<Long> extractOptionIds(Product product) {
