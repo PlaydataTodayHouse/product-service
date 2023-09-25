@@ -3,6 +3,7 @@ package com.example.product.service;
 import com.example.product.config.TokenInfo;
 import com.example.product.domain.entity.*;
 import com.example.product.domain.entity.dto.request.product.ProductCreateRequest;
+import com.example.product.domain.entity.dto.response.ProductResponse;
 import com.example.product.domain.entity.dto.request.query.QueryParameter;
 import com.example.product.domain.entity.dto.response.ProductDetailResponse;
 import com.example.product.domain.entity.dto.response.ProductResponses;
@@ -16,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -76,4 +80,61 @@ public class ProductService {
         return brandRepository.findById(request.getBrandId())
                 .orElseThrow(NoSuchBrandFoundException::new);
     }
+
+
+    public List<ProductResponse> findAllProducts() {
+        return productRepository.findAll().stream()
+                .map(product -> ProductResponse.builder()
+                        .id(product.getId())
+                        .categoryId(product.getCategoryId())
+                        .productImageUrl(product.getProductImageUrl())
+                        .productName(product.getProductName())
+                        .productContent(product.getProductContent())
+                        .company(product.getCompany())
+                        .companyRegistrationNumber(product.getCompanyRegistrationNumber())
+                        .originalPrice(product.getOriginalPrice())
+                        .discountRate(product.getDiscountRate())
+                        .totalQuantity(product.getTotalQuantity())
+                        .salesCount(product.getSalesCount())
+                        .wishCount(product.getWishCount())
+                        .viewCount(product.getViewCount())
+                        .reviewAvg(product.getReviewAvg())
+                        .reviewCount(product.getReviewCount())
+                        .isSoldOut(product.getIsSoldOut())
+                        .isSelling(product.getIsSelling())
+                        .deliveryType(product.getDelivery().name())
+                        .brandId(product.getBrand().getId())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+
+    public ProductResponse findProductById(Long productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        Product product = optionalProduct.orElse(null);
+
+
+        return ProductResponse.builder()
+                .id(product.getId())
+                .categoryId(product.getCategoryId())
+                .productImageUrl(product.getProductImageUrl())
+                .productName(product.getProductName())
+                .productContent(product.getProductContent())
+                .company(product.getCompany())
+                .companyRegistrationNumber(product.getCompanyRegistrationNumber())
+                .originalPrice(product.getOriginalPrice())
+                .discountRate(product.getDiscountRate())
+                .totalQuantity(product.getTotalQuantity())
+                .salesCount(product.getSalesCount())
+                .wishCount(product.getWishCount())
+                .viewCount(product.getViewCount())
+                .reviewAvg(product.getReviewAvg())
+                .reviewCount(product.getReviewCount())
+                .isSoldOut(product.getIsSoldOut())
+                .isSelling(product.getIsSelling())
+                .deliveryType(product.getDelivery().name())
+                .brandId(product.getBrand().getId())
+                .build();
+    }
+
 }

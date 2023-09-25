@@ -4,10 +4,12 @@ import com.example.product.domain.entity.Delivery;
 import com.example.product.domain.entity.Product;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ProductResponse {
@@ -29,6 +31,11 @@ public class ProductResponse {
     private Integer reviewCount;
     private Boolean isSoldOut;
     private Boolean isSelling;
+
+    private String deliveryType;
+    private Long brandId;
+
+}
     private Delivery delivery;
 
     // 로그인 사용자인 경우 찜 여부 체크 아니면 false
@@ -62,3 +69,4 @@ public class ProductResponse {
     }
 
 }
+
