@@ -1,7 +1,7 @@
 package com.example.product.domain.entity.dto.response;
 
 import com.example.product.domain.entity.Option;
-import com.example.product.domain.entity.OptionDetail;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class OptionResponse {
 
@@ -17,6 +17,16 @@ public class OptionResponse {
     private String optionName;
     private Boolean isRequired;
 
-    private List<OptionDetail> optionDetails;
+    private List<OptionDetailResponse> optionDetails;
+
+    public static OptionResponse of(Option option) {
+        return new OptionResponse(
+                option.getId(),
+                option.getOptionName(),
+                option.getIsRequired(),
+                option.getOptionDetails().stream()
+                        .map(OptionDetailResponse::of)
+                        .toList());
+    }
 
 }

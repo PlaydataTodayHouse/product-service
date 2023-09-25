@@ -1,17 +1,12 @@
 package com.example.product.repository;
 
 import com.example.product.RepositoryTest;
-import com.example.product.domain.entity.Option;
 import com.example.product.domain.entity.Product;
 import com.example.product.domain.entity.dto.request.query.QueryParameter;
-import jakarta.persistence.Tuple;
-import jakarta.persistence.TupleElement;
-import org.hibernate.Hibernate;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 

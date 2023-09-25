@@ -5,6 +5,7 @@ import com.example.product.config.TokenInfo;
 import com.example.product.domain.entity.Product;
 import com.example.product.domain.entity.dto.request.product.ProductCreateRequest;
 import com.example.product.domain.entity.dto.response.ProductResponse;
+
 import com.example.product.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,15 +32,19 @@ public class ProductController {
     }
 
 
-    @GetMapping("/allProduct")
-    public ResponseEntity<List<ProductResponse>> findAllProduct() {
-        List<ProductResponse> productResponses = productService.findAllProducts();
-        return ResponseEntity.ok(productResponses);
+    @GetMapping
+    public ResponseEntity<ProductResponses> products(
+            @QueryParams QueryParameter queryParameter,
+            @UserTokenInfo TokenInfo tokenInfo
+    ) {
+        return ResponseEntity.ok(productService.products(queryParameter, tokenInfo));
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductResponse> findProductById(@PathVariable Long productId) {
-        ProductResponse productResponse = productService.findProductById(productId);
-        return ResponseEntity.ok(productResponse);
+    public ResponseEntity<ProductDetailResponse> productDetail(
+            @PathVariable("productId") Long productId,
+            @UserTokenInfo TokenInfo tokenInfo
+    ) {
+        return ResponseEntity.ok(productService.productDetail(productId, tokenInfo));
     }
 }

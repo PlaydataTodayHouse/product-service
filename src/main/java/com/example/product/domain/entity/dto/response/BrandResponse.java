@@ -1,12 +1,13 @@
 package com.example.product.domain.entity.dto.response;
 
 import com.example.product.domain.entity.Brand;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class BrandResponse {
 

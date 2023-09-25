@@ -1,5 +1,7 @@
 package com.example.product.domain.entity.dto.response;
 
+import com.example.product.domain.entity.Review;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ReviewResponse {
 
@@ -17,5 +19,16 @@ public class ReviewResponse {
     private String productOptionName;
     private Integer starGrade;
     private LocalDateTime createdAt;
+
+    public static ReviewResponse of(Review review) {
+        return new ReviewResponse(
+                review.getId(),
+                review.getReviewContent(),
+                review.getReviewImageUrl(),
+                review.getProductOptionName(),
+                review.getStarGrade(),
+                review.getCreatedAt()
+        );
+    }
 
 }
