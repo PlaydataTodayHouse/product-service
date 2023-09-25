@@ -76,6 +76,7 @@ public class ProductService {
                 .toList();
     }
 
+
     private Brand validateBrand(ProductCreateRequest request) {
         return brandRepository.findById(request.getBrandId())
                 .orElseThrow(NoSuchBrandFoundException::new);
